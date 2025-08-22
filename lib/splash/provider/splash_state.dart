@@ -1,0 +1,4 @@
+enum SplashState{
+  noAction,
+  moveNext
+}

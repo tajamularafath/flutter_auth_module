@@ -1,3 +1,5 @@
+import 'package:authication_module/routes/app_route_generator.dart';
+import 'package:authication_module/routes/app_route_path_constants.dart';
 import 'package:flutter/material.dart';
 
 import 'features/auth/presentation/screen/login/log_in_screen.dart';
@@ -17,7 +19,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: LogInScreen(),
+      initialRoute: RoutesPathConstants.initialRoute,
+      onGenerateRoute: AppRouteGenerator.generateRoute,
       debugShowCheckedModeBanner: false,
     );
   }
