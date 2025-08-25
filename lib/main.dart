@@ -2,9 +2,12 @@ import 'package:authication_module/routes/app_route_generator.dart';
 import 'package:authication_module/routes/app_route_path_constants.dart';
 import 'package:flutter/material.dart';
 
+import 'core/di/injection_container.dart';
 import 'features/auth/presentation/screen/login/log_in_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await setupLocator();
   runApp(const MyApp());
 }
 

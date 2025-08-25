@@ -1,25 +1,26 @@
 import 'package:authication_module/constants/image_names.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../constants/app_colors.dart';
+import '../../../constants/spacing.dart';
 
 class AuthContainerWidget extends StatelessWidget {
   final VoidCallback? onBackPressed;
-  final Widget? fillChild;
   final Widget? child;
+  final Widget? fillChild;
 
   const AuthContainerWidget({
     super.key,
     this.onBackPressed,
-    this.fillChild,
     this.child,
+    this.fillChild,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
@@ -41,12 +42,15 @@ class AuthContainerWidget extends StatelessWidget {
             flexibleSpace: Stack(
               children: [
                 Center(
-                  child: SizedBox(
-                    width: 108,
-                    height: 100,
-                    child: SvgPicture.asset(
-                      ImageNames.logo,
-                      fit: BoxFit.contain,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: Spacing.medium),
+                    child: SizedBox(
+                      height: 108,
+                      width: 96,
+                      child: SvgPicture.asset(
+                        ImageNames.logo,
+                        fit: BoxFit.contain,
+                      ),
                     ),
                   ),
                 ),
@@ -58,13 +62,15 @@ class AuthContainerWidget extends StatelessWidget {
             ),
 
             bottom: PreferredSize(
-              preferredSize: Size(20.0, 20.0),
+              preferredSize: Size(20, 20),
               child: Container(
-                padding: EdgeInsets.all(14.0),
-                decoration: BoxDecoration(
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.all(14),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(32.0),
-                    topRight: Radius.circular(32.0),
+                    topLeft: Radius.circular(32),
+                    topRight: Radius.circular(32),
                   ),
                 ),
               ),
@@ -73,6 +79,7 @@ class AuthContainerWidget extends StatelessWidget {
           SliverToBoxAdapter(
             child: (child == null) ? SizedBox.shrink() : child,
           ),
+
           SliverFillRemaining(
             hasScrollBody: false,
             child: (fillChild == null) ? SizedBox.shrink() : fillChild,
