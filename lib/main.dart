@@ -1,5 +1,6 @@
 import 'package:authication_module/routes/app_route_generator.dart';
 import 'package:authication_module/routes/app_route_path_constants.dart';
+import 'package:authication_module/theme/theme.dart';
 import 'package:flutter/material.dart';
 
 import 'core/di/injection_container.dart';
@@ -19,12 +20,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
       initialRoute: RoutesPathConstants.initialRoute,
       onGenerateRoute: AppRouteGenerator.generateRoute,
       debugShowCheckedModeBanner: false,
+      theme: theme,
     );
   }
 }

@@ -1,4 +1,8 @@
 import 'package:authication_module/core/app_preference.dart';
+import 'package:authication_module/features/auth/data/data_source/data_source_repository.dart';
+import 'package:authication_module/features/auth/data/data_source/data_source_repository_implementation.dart';
+import 'package:authication_module/features/auth/data/repository_implementation/auth_repository_implementation.dart';
+import 'package:authication_module/features/auth/domain/repository/auth_repository.dart';
 import 'package:authication_module/features/auth/domain/use_case/auth_usecase.dart';
 import 'package:authication_module/features/auth/presentation/provider/login_provider/login_provider.dart';
 import 'package:authication_module/splash/provider/splash_provider.dart';
@@ -23,11 +27,12 @@ Future<void> setupLocator() async {
   locator.registerFactory(() => SplashProvider());
 
   /// Use Case
-  locator.registerLazySingleton(() => AuthUseCase());
+  locator.registerLazySingleton(() => AuthUseCase(authRepository: locator()));
 
   /// Domain
-
+  locator.registerLazySingleton<AuthRepository>(() => AuthRepositoryImplementation(authDataSourceRepository: locator()));
 
 
   /// Data
+  locator.registerLazySingleton<AuthDataSourceRepository>(() => AuthDataSourceRepositoryImplementation());
 }
