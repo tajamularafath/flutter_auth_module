@@ -62,60 +62,63 @@ class LogInScreen extends StatelessWidget {
                 left: Spacing.medium,
                 right: Spacing.medium,
               ),
-              child: Column(
-                children: [
-                  AuthLabelLargeWidget(label: StringConstants.login),
-                  SizedBox(height: Spacing.extraSmall),
-                  AuthLabelTitleMediumWidget(
-                    label: StringConstants.loginDescription,
-                  ),
-                  SizedBox(height: 24),
-                  AuthTextFieldWidget(
-                    label: StringConstants.mobile,
-                    hintText: StringConstants.enterMobile,
-                    controller: provider.phoneController,
-                    keyboardType: TextInputType.number,
-                    prefixIconPath: ImageNames.iconMobile,
-                    enabled: true,
-                    autoValidateMode: AutovalidateMode.onUserInteraction,
-                    validator: (value) =>
-                        AppFormValidation.mobileValidation(value),
-                    onChanged: (value) {},
-                  ),
-                  SizedBox(height: Spacing.medium),
-                  SizedBox(height: Spacing.medium),
-                  AuthTextFieldWidget(
-                    label: StringConstants.password,
-                    hintText: StringConstants.enterPassword,
-                    controller: provider.passwordController,
-                    prefixIconPath: ImageNames.iconPassword,
-                    isPassword: true,
-                    enabled: true,
-                    autoValidateMode: AutovalidateMode.onUserInteraction,
-                    validator: AppFormValidation.passwordFieldEmpty,
-                    onChanged: (value) {},
-                    keyboardType: TextInputType.text,
-                  ),
-
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                      style: TextButton.styleFrom(),
-                      onPressed: () {
-                        debugPrint("Forget Password !");
-                      },
-                      child: Text("Forget Password"),
+              child: Form(
+                key: provider.formKey,
+                child: Column(
+                  children: [
+                    AuthLabelLargeWidget(label: StringConstants.login),
+                    SizedBox(height: Spacing.extraSmall),
+                    AuthLabelTitleMediumWidget(
+                      label: StringConstants.loginDescription,
                     ),
-                  ),
-                  SizedBox(height: 30),
-                  ElevatedButton(
-                    onPressed: (provider.isFormValid)
-                        ? () {provider.login();}
-                        : null,
-                    child: Text(StringConstants.login),
-                  ),
-                  Spacer(),
-                ],
+                    SizedBox(height: 24),
+                    AuthTextFieldWidget(
+                      label: StringConstants.mobile,
+                      hintText: StringConstants.enterMobile,
+                      controller: provider.phoneController,
+                      keyboardType: TextInputType.number,
+                      prefixIconPath: ImageNames.iconMobile,
+                      enabled: true,
+                      autoValidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) =>
+                          AppFormValidation.mobileValidation(value),
+                      onChanged: (value) {},
+                    ),
+                    SizedBox(height: Spacing.medium),
+                    SizedBox(height: Spacing.medium),
+                    AuthTextFieldWidget(
+                      label: StringConstants.password,
+                      hintText: StringConstants.enterPassword,
+                      controller: provider.passwordController,
+                      prefixIconPath: ImageNames.iconPassword,
+                      isPassword: true,
+                      enabled: true,
+                      autoValidateMode: AutovalidateMode.onUserInteraction,
+                      validator: AppFormValidation.passwordFieldEmpty,
+                      onChanged: (value) {},
+                      keyboardType: TextInputType.text,
+                    ),
+                
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                        style: TextButton.styleFrom(),
+                        onPressed: () {
+                          debugPrint("Forget Password !");
+                        },
+                        child: Text("Forget Password"),
+                      ),
+                    ),
+                    SizedBox(height: 30),
+                    ElevatedButton(
+                      onPressed: (provider.isFormValid)
+                          ? () {provider.login();}
+                          : null,
+                      child: Text(StringConstants.login),
+                    ),
+                    Spacer(),
+                  ],
+                ),
               ),
             ),
           ),

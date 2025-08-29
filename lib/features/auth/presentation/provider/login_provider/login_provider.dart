@@ -22,12 +22,14 @@ class LoginProvider with ChangeNotifier {
 
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
+
   bool _isFormValid = false;
 
   bool get isFormValid => _isFormValid;
 
   void _validateForm() {
-    final isValid = phoneController.text.isNotEmpty &&
+    final isValid =
+        phoneController.text.isNotEmpty &&
         passwordController.text.isNotEmpty &&
         formKey.currentState?.validate() == true;
 
@@ -37,27 +39,36 @@ class LoginProvider with ChangeNotifier {
     }
   }
 
+  LoginProvider() {
+    passwordController.addListener(_validateForm);
+    phoneController.addListener(_validateForm);
+  }
+
   /// API CALL
   void login() async {
     setState(state: LoginState.loading);
-    final response = await useCase.login(loginParams: LoginParam(
+    final response = await useCase.login(
+      loginParams: LoginParam(
         phone: phoneController.text.trim(),
-        password: passwordController.text.trim()));
+        password: passwordController.text.trim(),
+      ),
+    );
     debugPrint("Response : $response");
 
     /// Success
-    if(response is LoginResponseModel){
+    if (response is LoginResponseModel) {
       loginResponseModel = response;
       storeLocalData();
       setState(state: LoginState.success);
     }
+
     /// Error
-    if(response is AppException){
+    if (response is AppException) {
       error = response.error;
-      if(error?.type == DioExceptionType.connectionError) {
+      if (error?.type == DioExceptionType.connectionError) {
         message = ExceptionMessage.noInternet;
       } else {
-        switch (response.code){
+        switch (response.code) {
           case 401:
             message = StringConstants.inCorrectPassword;
             break;
@@ -80,9 +91,10 @@ class LoginProvider with ChangeNotifier {
   }
 
   void storeLocalData() async {
-    if(loginResponseModel == null) return;
+    if (loginResponseModel == null) return;
     await _prefs.setLoginState(true);
     await _prefs.setLoginToken(loginResponseModel!.token ?? '');
     await _prefs.setLoginMobileNumber(loginResponseModel!.userName ?? '');
+    debugPrint("====>"+_prefs.setLoginState(true).toString());
   }
 }
