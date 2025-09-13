@@ -43,6 +43,11 @@ class StringConstants{
   static const String otpSendToMobileNumber = 'OTP send to your mobile number';
   static const String passwordResetSuccessful = 'Password reset is successful \nPlease login account';
 
+  static const String homeLabel = 'Home';
+  static const String categoryLabel = 'Category';
+  static const String cartLabel = 'Cart';
+  static const String profileLabel = 'Profile';
+
 
 
 

@@ -5,6 +5,7 @@ import 'package:authication_module/features/auth/data/repository_implementation/
 import 'package:authication_module/features/auth/domain/repository/auth_repository.dart';
 import 'package:authication_module/features/auth/domain/use_case/auth_usecase.dart';
 import 'package:authication_module/features/auth/presentation/provider/login_provider/login_provider.dart';
+import 'package:authication_module/onboarding/provider/bottom_navigation_provider.dart';
 import 'package:authication_module/splash/provider/splash_provider.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,6 +26,7 @@ Future<void> setupLocator() async {
   /// Providers
   locator.registerFactory(() => LoginProvider());
   locator.registerFactory(() => SplashProvider());
+  locator.registerFactory(() => BottomNavigationProvider());
 
   /// Use Case
   locator.registerLazySingleton(() => AuthUseCase(authRepository: locator()));

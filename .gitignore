@@ -11,6 +11,7 @@
 .svn/
 .swiftpm/
 migrate_working_dir/
+/bioler_files_folder/
 
 # IntelliJ related
 *.iml
