@@ -16,4 +16,7 @@ class ImageNames {
   /// API
   static const String error = 'assets/images/api/error.svg';
   static const String success = 'assets/images/api/success.svg';
+
+
+  static const String offerBanner = 'assets/images/latest_offer_banner1.png';
 }

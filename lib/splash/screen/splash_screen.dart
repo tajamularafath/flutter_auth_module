@@ -1,8 +1,8 @@
 import 'dart:math' as Math;
 
+import 'package:authication_module/splash/provider/splash_provider.dart';
 import 'package:flutter/material.dart';
-
-import '../../features/home/presentation/screen/home_screen.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -63,9 +63,10 @@ class _SplashScreenState extends State<SplashScreen>
       CurvedAnimation(parent: _logoController, curve: Curves.elasticOut),
     );
 
-    _logoOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _logoController, curve: Curves.easeIn),
-    );
+    _logoOpacity = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _logoController, curve: Curves.easeIn));
 
     // Tagline animations
     _taglineOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
@@ -82,9 +83,10 @@ class _SplashScreenState extends State<SplashScreen>
     );
 
     // Milk bottle rotation
-    _milkRotation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _milkController, curve: Curves.linear),
-    );
+    _milkRotation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _milkController, curve: Curves.linear));
   }
 
   void _startAnimationSequence() async {
@@ -104,18 +106,12 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   void _navigateToHome() {
+    final provider = Provider.of<SplashProvider>(context, listen: false);
     Future.delayed(const Duration(milliseconds: 3500), () {
       if (mounted) {
-        Navigator.of(context).pushReplacement(
-          PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) =>
-            const HomeScreen(),
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) {
-              return FadeTransition(opacity: animation, child: child);
-            },
-            transitionDuration: const Duration(milliseconds: 500),
-          ),
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          provider.initialRoute,
+          (Route<dynamic> route) => false,
         );
       }
     });
@@ -417,8 +413,9 @@ class _SplashScreenState extends State<SplashScreen>
                           width: 12,
                           height: 12,
                           decoration: BoxDecoration(
-                            color: Color(0xFF4CAF50)
-                                .withOpacity(0.7 - (animationValue * 0.5)),
+                            color: Color(
+                              0xFF4CAF50,
+                            ).withOpacity(0.7 - (animationValue * 0.5)),
                             shape: BoxShape.circle,
                           ),
                         ),
@@ -451,11 +448,7 @@ class _SplashScreenState extends State<SplashScreen>
       child: Stack(
         children: [
           // Wave pattern
-          Positioned.fill(
-            child: CustomPaint(
-              painter: WavePainter(),
-            ),
-          ),
+          Positioned.fill(child: CustomPaint(painter: WavePainter())),
           // Additional decorative elements
           Positioned(
             left: 20,
@@ -487,8 +480,8 @@ class WavePainter extends CustomPainter {
     path.moveTo(0, size.height * 0.5);
 
     for (double x = 0; x <= size.width; x++) {
-      final y = size.height * 0.5 +
-          10 * Math.sin((x / size.width) * 4 * Math.pi);
+      final y =
+          size.height * 0.5 + 10 * Math.sin((x / size.width) * 4 * Math.pi);
       path.lineTo(x, y);
     }
 
