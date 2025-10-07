@@ -1,4 +1,5 @@
 import 'package:authication_module/core/di/injection_container.dart';
+import 'package:authication_module/features/auth/presentation/screen/forget_password/forget_password_screen.dart';
 import 'package:authication_module/features/auth/presentation/screen/login/log_in_screen.dart';
 import 'package:authication_module/features/profile/presentation/screen/help_supports_screen.dart';
 import 'package:authication_module/features/profile/presentation/screen/my_order_screen.dart';
@@ -93,6 +94,13 @@ class AppRouteGenerator {
           builder: (_) => ChangeNotifierProvider(
             create: (_) => locator<LoginProvider>(),
             child: AboutUsScreen(),
+          ),
+        );
+        case RoutesPathConstants.forgetPasswordScreen:
+        return MaterialPageRoute(
+          builder: (_) => ChangeNotifierProvider(
+            create: (_) => locator<LoginProvider>(),
+            child: ForgetPasswordScreen(),
           ),
         );
     }

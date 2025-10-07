@@ -104,6 +104,7 @@ class LogInScreen extends StatelessWidget {
                       child: TextButton(
                         style: TextButton.styleFrom(),
                         onPressed: () {
+                          Navigator.pushNamed(context, RoutesPathConstants.forgetPasswordScreen);
                           debugPrint("Forget Password !");
                         },
                         child: Text("Forget Password"),

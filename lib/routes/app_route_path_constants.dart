@@ -12,5 +12,7 @@ class RoutesPathConstants{
   static const String helpAndSupportsRoute = "/helpAndSupportsScreen";
   static const String aboutUsRoute = "/aboutUsScreen";
 
+  static const String forgetPasswordScreen = "/forgetPasswordScreen";
+
 
 }
