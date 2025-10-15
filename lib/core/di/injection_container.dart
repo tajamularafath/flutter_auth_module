@@ -10,6 +10,7 @@ import 'package:authication_module/splash/provider/splash_provider.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../features/auth/presentation/provider/register_provider/register_provider.dart';
 import '../user_preference.dart';
 
 final locator = GetIt.instance;
@@ -27,6 +28,7 @@ Future<void> setupLocator() async {
   locator.registerFactory(() => LoginProvider());
   locator.registerFactory(() => SplashProvider());
   locator.registerFactory(() => BottomNavigationProvider());
+  locator.registerFactory(() => RegisterProvider());
 
   /// Use Case
   locator.registerLazySingleton(() => AuthUseCase(authRepository: locator()));

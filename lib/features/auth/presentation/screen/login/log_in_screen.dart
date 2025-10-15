@@ -118,6 +118,40 @@ class LogInScreen extends StatelessWidget {
                       child: Text(StringConstants.login),
                     ),
                     Spacer(),
+
+                    /// Bottom section
+                    Padding(
+                      padding: EdgeInsets.all(Spacing.s46),
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(
+                            context,
+                            RoutesPathConstants.createAccountRoute,
+                          );
+                        },
+                        child: Text.rich(
+                          TextSpan(
+                            text: StringConstants.doNotHaveAccount,
+                            style: Theme.of(
+                              context,
+                            ).textTheme.labelLarge?.copyWith(
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: StringConstants.register,
+                                style: Theme.of(
+                                  context,
+                                ).textTheme.labelLarge?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

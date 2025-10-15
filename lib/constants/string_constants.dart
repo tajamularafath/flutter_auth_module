@@ -48,6 +48,16 @@ class StringConstants{
   static const String cartLabel = 'Cart';
   static const String profileLabel = 'Profile';
 
+  static const String doNotHaveAccount = 'Don\'t have an account?';
+
+  static const String register = 'Register';
+  static const String continueText = 'Continue';
+
+  static const String labelTitle = 'Please enter your details to proceed';
+  static const String alreadyHaveAccount = 'Already have an account?';
+
+  static const String countryCode = '+91';
+
 
 
 

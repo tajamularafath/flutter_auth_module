@@ -1,22 +1,24 @@
 import 'package:authication_module/core/di/injection_container.dart';
 import 'package:authication_module/features/auth/presentation/screen/forget_password/forget_password_screen.dart';
 import 'package:authication_module/features/auth/presentation/screen/login/log_in_screen.dart';
+import 'package:authication_module/features/auth/presentation/screen/register/register_screen.dart';
 import 'package:authication_module/features/profile/presentation/screen/help_supports_screen.dart';
 import 'package:authication_module/features/profile/presentation/screen/my_order_screen.dart';
 import 'package:authication_module/onboarding/bottom_navigation_screen.dart';
 import 'package:authication_module/onboarding/provider/bottom_navigation_provider.dart';
 import 'package:authication_module/routes/app_route_path_constants.dart';
 import 'package:authication_module/splash/provider/splash_provider.dart';
-import 'package:authication_module/splash/screen/splash_screen.dart' hide HomeScreen;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../features/auth/presentation/provider/login_provider/login_provider.dart';
+import '../features/auth/presentation/provider/register_provider/register_provider.dart';
 import '../features/home/presentation/screen/home_screen.dart';
 import '../features/profile/presentation/screen/about_us_screen.dart';
 import '../features/profile/presentation/screen/delivered_screen.dart';
 import '../features/profile/presentation/screen/notifications_screen.dart';
 import '../features/profile/presentation/screen/payment_methods_screen.dart';
+import '../splash/screen/splash_screen.dart';
 
 /// This file use to configure route configurations,
 /// And set up corresponding screen to the ScreenClass file,
@@ -101,6 +103,13 @@ class AppRouteGenerator {
           builder: (_) => ChangeNotifierProvider(
             create: (_) => locator<LoginProvider>(),
             child: ForgetPasswordScreen(),
+          ),
+        );
+        case RoutesPathConstants.createAccountRoute:
+        return MaterialPageRoute(
+          builder: (_) => ChangeNotifierProvider(
+            create: (_) => locator<RegisterProvider>(),
+            child: RegisterScreen(),
           ),
         );
     }

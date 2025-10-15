@@ -14,5 +14,7 @@ class RoutesPathConstants{
 
   static const String forgetPasswordScreen = "/forgetPasswordScreen";
 
+  static const String createAccountRoute = "/createAccountScreen";
+
 
 }

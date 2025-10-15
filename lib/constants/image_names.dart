@@ -19,4 +19,6 @@ class ImageNames {
 
 
   static const String offerBanner = 'assets/images/latest_offer_banner1.png';
+  static const String iconProfile = 'assets/svg/profile.svg';
+  static const String iconEmail = 'assets/svg/ic_email.svg';
 }
