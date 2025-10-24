@@ -1,5 +1,6 @@
+import 'dart:convert';
+
 import 'package:authication_module/constants/exception_message.dart';
-import 'package:authication_module/constants/key_constants.dart';
 import 'package:authication_module/constants/string_constants.dart';
 import 'package:authication_module/core/di/injection_container.dart';
 import 'package:authication_module/core/exception/app_exception.dart';
@@ -10,6 +11,7 @@ import 'package:authication_module/features/auth/presentation/provider/login_pro
 import 'package:authication_module/utils/parameters/login_params.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
+import 'package:http/http.dart' as http;
 
 class LoginProvider with ChangeNotifier {
   final formKey = GlobalKey<FormState>();
@@ -42,6 +44,7 @@ class LoginProvider with ChangeNotifier {
   LoginProvider() {
     passwordController.addListener(_validateForm);
     phoneController.addListener(_validateForm);
+    fetchMessage();
   }
 
   /// API CALL
@@ -59,11 +62,13 @@ class LoginProvider with ChangeNotifier {
     if (response is LoginResponseModel) {
       loginResponseModel = response;
       storeLocalData();
+      fetchMessage();
       setState(state: LoginState.success);
     }
 
     /// Error
     if (response is AppException) {
+      fetchMessage();
       error = response.error;
       if (error?.type == DioExceptionType.connectionError) {
         message = ExceptionMessage.noInternet;
@@ -76,6 +81,7 @@ class LoginProvider with ChangeNotifier {
             message = StringConstants.onNotFound;
             break;
           default:
+            fetchMessage();
             message = error?.message;
         }
       }
@@ -97,4 +103,30 @@ class LoginProvider with ChangeNotifier {
     await _prefs.setLoginMobileNumber(loginResponseModel!.userName ?? '');
     debugPrint("====>"+_prefs.setLoginState(true).toString());
   }
-}
+
+  /// Async method to fetch message from your Spring Boot backend
+  Future<void> fetchMessage() async {
+    final username = 'user';
+    final password = 'user123';
+    final credentials = base64Encode(utf8.encode('$username:$password'));
+
+    try {
+      final response = await http.get(
+        Uri.parse('http://10.0.2.2:8080/api/user/message'),
+        headers: {'Authorization': 'Basic $credentials'},
+      );
+
+      debugPrint('Status Code: ${response.statusCode}');
+      debugPrint('Response Body: ${response.body}');
+
+      if (response.statusCode == 200) {
+        message = response.body;
+      } else {
+        throw Exception('Error ${response.statusCode}: ${response.body}');
+      }
+    } catch (e) {
+      debugPrint('Exception caught: $e');
+    }
+
+    notifyListeners();
+  }}
